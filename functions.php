@@ -57,3 +57,39 @@ function summC($n = 1000) {
     }
     return $res;
 }
+
+function vozrast($n = 1234) { //определяет следуют ли цифры по возрастанию
+    $cifra = 10;
+    while ($n > 0) {
+        if (($n % 10) < $cifra) {
+            $cifra = $n % 10;
+            $n /= 10;
+            $n = (int) $n;
+        } else {
+            return false;
+        }
+    }
+    return true;
+}
+
+function ubyv($n) { //определяет следуют ли цифры по убыванию
+    $cifra = -1;
+    while ($n > 0) {
+        if (($n % 10) > $cifra) {
+            $cifra = $n % 10;
+            $n /= 10;
+            $n = (int) $n;
+        } else {
+            return false;
+        }
+    }
+    return true;
+}
+
+function randArray($count = 10, $max=1000){
+    $count = (int)$count;
+    while($count--){
+        $res[] = rand(1, $max);
+    }    
+    return $res;
+}
