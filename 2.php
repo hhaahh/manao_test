@@ -4,10 +4,9 @@
 $n = 2;
 for ($i = 1000; $i < 10000; $i++) {
     if (summC($i) == $n) {
-        $res[]=$i;
+        echo $i."<br>";
     }
 }
-print_r($res);
 
 
 
