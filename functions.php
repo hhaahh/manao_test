@@ -23,4 +23,27 @@ function haveNumber($n, $i=NULL) {
         return false;
     }
 }
+function cifry($n){
+    $numb = $n;
+    $count = 0;
+    while ($numb > 0) {
+        $res[] = $numb % 10;
+        $count++;
+        $numb /= 10;
+        $numb = (int)$numb;
+    }
+    return ['list'=>$res, 'count'=>$count];
+}
+
+function palindrom($n){
+    $cifry = cifry($n);
+    $first = 0;
+    $last = $cifry['count']-1;
+    for($i=$first; $i<$last; $i++, $last--){
+        if($cifry['list'][$i]!=$cifry['list'][$last]){
+            return false;
+        }
+    }
+    return true;
+}
 
