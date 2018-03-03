@@ -5,8 +5,6 @@
  */
 require_once 'functions.php';
 for($i=1000; $i<10000;$i++){
-    $ost = $i%10;
-    $numb = $i/10;
     if(!haveNumber($i)){
         $res[] = $i;
     }
