@@ -11,7 +11,6 @@ for ($i = 1000; $i < 10000; $i++) {
 
 
 function summC($n = 1000) {
-    $i = 1;
     $res = 0;
     while ($n > 0) {
         $res += $n % 10;
