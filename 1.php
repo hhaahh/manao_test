@@ -1,12 +1,13 @@
 ﻿<?php
 //1. Определить  количество  цифр,  меньших  5,  используемых  при  записи натурального числа N.
 $n = 78123846585;
-$n = (string) $n;
-$count = mb_strlen($n);
-$i = 0;
-while ($count--) {
-    if ($n[$count] < 5) {
-        $i++;
+$res = 0;
+while ($n > 0) {
+    $cifra = $n % 10;
+    if($cifra <5){
+        $res++;
     }
+    $n /= 10;
+    $n = (int)$n;
 }
-echo $i;
+echo $res;
