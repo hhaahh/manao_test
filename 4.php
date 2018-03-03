@@ -1,36 +1,30 @@
 <?php
 
 //4. Найти все четные четырехзначные числа, цифры которых следуют в порядке возрастания или убывания
-for($i=1000;$i<10000;$i++){
-    if($i%2==0 && (vozrast($i) || ubyv($i))){
-        $res[]=$i;
+for ($i = 1000; $i < 10000; $i += 2) {
+    if (vozrastUbyv($i)) {
+        $res[] = $i;
     }
 }
 print_r($res);
-function vozrast($n = 1234) { //определяет следуют ли цифры по возрастанию
-    $cifra = 10;
-    while ($n > 0) {
-        if (($n % 10) < $cifra) {
-            $cifra = $n % 10;
-            $n /= 10;
-            $n = (int) $n;
-        } else {
-            return false;
-        }
-    }
-    return true;
-}
 
-function ubyv($n) { //определяет следуют ли цифры по убыванию
-    $cifra = -1;
+function vozrastUbyv($n = 1234) { //определяет следуют ли цифры по возрастанию
+    $cifraV = 10;
+    $cifraU = -1;
+    $resV = true;
+    $resU = true;
     while ($n > 0) {
-        if (($n % 10) > $cifra) {
-            $cifra = $n % 10;
-            $n /= 10;
-            $n = (int) $n;
-        } else {
-            return false;
+        $ost = $n % 10;
+        if ($ost >= $cifraV) {
+            $resV = false;
         }
+        if ($ost <= $cifraU) {
+            $resU = false;
+        }
+        $cifraV = $n % 10;
+        $cifraU = $cifraV;
+        $n /= 10;
+        $n = (int) $n;
     }
-    return true;
+    return $resV||$resU;
 }
