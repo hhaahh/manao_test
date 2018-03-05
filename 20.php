@@ -18,7 +18,7 @@ print($res['число']);
 function summDel($value) {
     $i = 1;
     $summ = 0;
-    for ($i = 1; $i < $value; $i++) {
+    for ($i = 1; $i <= $value; $i++) {
         if ($value % $i == 0) {
             $summ += $i;
         }

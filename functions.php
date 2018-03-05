@@ -102,3 +102,11 @@ function randArray($count = 10, $max=1000){
     }    
     return $res;
 }
+
+function myPow($numb, $stepen) {
+    $res = 1;
+    while ($stepen--) {
+        $res *= $numb;
+    }
+    return $res;
+}

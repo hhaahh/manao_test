@@ -36,7 +36,7 @@ $h = [
 ];
 $chislo2 = $res['2'];
 while($chislo2!=0){//прееобразование в 16-ричную систему
-    $res[16] = $h[ $chislo2%10000 ].$res[16];
+    $res[16] = $h[ $chislo2%10000 ] . $res[16];
     $chislo2 /= 10000;
     $chislo2 = (int)$chislo2;
 }
