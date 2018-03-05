@@ -71,7 +71,16 @@ function vozrast($n = 1234) { //определяет следуют ли циф�
     }
     return true;
 }
-
+function prost($n = 1) {
+    $res = true;
+    for ($i = 2; $i < $n; $i++) {
+        if (($n % $i) == 0) {
+            $res = false;
+            break;
+        }
+    }
+    return $res;
+}
 function ubyv($n) { //определяет следуют ли цифры по убыванию
     $cifra = -1;
     while ($n > 0) {

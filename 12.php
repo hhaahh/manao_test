@@ -13,7 +13,7 @@ if (prost($n)) {
 
 function prost($n = 1) {
     $res = true;
-    for ($i = 2; $i < ($n / 2); $i++) {
+    for ($i = 2; $i < $n; $i++) {
         if (($n % $i) == 0) {
             $res = false;
             break;
