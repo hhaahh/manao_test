@@ -14,7 +14,7 @@ for ($i = 1; $i < $cifraArr['count']; $i++) {//сортируем масссив
     }
 }
 $res = 0;
-for ($i = 0; $i < $cifraArr['count']; ++$i) {//преобразуем массив в строку
+for ($i = 0; $i < $cifraArr['count']; ++$i) {//преобразуем массив в число
     $res += $cifraArr['list'][$i] * myPow(10, $i);
 }
 
