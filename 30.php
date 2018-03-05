@@ -17,7 +17,6 @@ for ($i = 0; $i < $m; $i++) {
 
 print_r($res);
 
-
 function prost($n = 1) {
     $res = true;
     for ($i = 2; $i < $n; $i++) {
