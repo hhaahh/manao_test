@@ -5,8 +5,8 @@
  */
 
 
-$m = 99999;
-$n = arr(10000, $m);
+$m = 1000;
+$n = arr(0, $m);
 $maxSumm = 0;
 $chislo = 0;
 for ($i = 0; $i < $m; $i++) {
@@ -21,8 +21,8 @@ echo "Число - $chislo, максимальная сумма простых �
 function summProstDel($value) {
     $i = 1;
     $summ = 0;
-    for ($i = 1; $i <= $value; $i++) {
-        if ($value % $i == 0 && prost($i)) {
+    for ($i = 1; $i < $value; $i++) {
+        if ($value%$i == 0 && prost($i)) {
             $summ += $i;
         }
     }
