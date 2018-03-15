@@ -33,4 +33,6 @@ function haveNumbers($numb) {
     return true;
 }
 
+echo "<pre>";
 print_r($res);
+echo "</pre>";
