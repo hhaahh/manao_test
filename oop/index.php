@@ -100,15 +100,19 @@ class Mnojestvo {
 
 }
 
-$n = "1234567890"; //исходная строка
+$memory = memory_get_usage();
+$n = "12345"; //исходная строка
 $m = 5; //длина итогововой строки
 $mnojestvoModel = new Mnojestvo($n, $m);
 
 $razmerItog = $mnojestvoModel->combCount($mnojestvoModel->ishodnRazmer, $mnojestvoModel->razmer);
 ?>
+
 <pre>
     Необходимый размер: <?= $razmerItog ?> 
     Строка: <?= $n ?>(N)
     Длина итоговой строки: <?= $m ?>(M)
     <?php print_r($mnojestvoModel->getWords()); ?>
+    Память: <?= (memory_get_usage()-$memory)/1024/1024 ?>
+
 </pre>

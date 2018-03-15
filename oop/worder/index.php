@@ -115,6 +115,7 @@ Class Worder {
     }
 
 }
-
+$memory = memory_get_usage();
 $w = new Worder("12345", 5);
 echo '<pre>' . print_r($w->getWords(), true) . '</pre>';
+echo (memory_get_usage()-$memory)/1024/1024;
