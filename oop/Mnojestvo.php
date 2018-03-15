@@ -28,7 +28,7 @@ class Mnojestvo {
         $this->actualIndex = $this->lastkey;
         $newkey = 0;
         while ($newkey <= $this->ishodnRazmer) {
-            //if ($output = array_slice($input, 0, 3))) {
+            if ($output = array_slice($input, 0, 3))) {
                 $newkey++;
                 continue;
             }
