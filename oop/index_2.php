@@ -6,13 +6,11 @@ class Mnojestvo {
     public $razmer; //размер комбинаций
     public $ishodnRazmer; //исходный размер
     public $str; //исходная строка
-    public $last;
     public $arr;
     public $result;
 
     public function __construct($str = '', $razmer = 0) {
         $this->razmer = $razmer;
-        $this->last = $this->razmer - 1;
         $this->str = $str;
         $this->ishodnArr = str_split($str);
         $this->ishodnRazmer = count($this->ishodnArr);
@@ -32,32 +30,43 @@ class Mnojestvo {
         $count = $this->razmer;
         $this->arr = range(0, $this->razmer - 1);
 
-
+        $pos = $count - 1;
         $this->getWord();
         while (true) {
-            $pos = $this->last;
-            $psevdo_arr = array_slice($this->arr, 0, $pos);
-            for ($i = $this->arr[$pos] + 1; $i <= $m; $i++) {
-                if (!in_array($i, $psevdo_arr)) {
-                    $this->arr[$pos] = $i;
-                    $this->getWord();
-                }
-            }
-            while ($pos-- > 0) {
+            for ($i = $this->arr[$pos]; $i < $m; $i++) {
+                $z = $i + 1;
                 $psevdo_arr = array_slice($this->arr, 0, $pos);
-                if ($this->arr[$pos]++ < $m) {
-                    if (in_array($this->arr[$pos], $psevdo_arr)) {
+                if (!in_array($z, $psevdo_arr)) {
+                    $this->arr[$pos] = $z;
+                } else {
+                    continue;
+                }
+
+                $this->getWord();
+            }
+            while ($pos > 0) {
+                $psevdo_arr = array_slice($this->arr, 0, --$pos);
+                if ($this->arr[$pos] < $m) {
+                    if (in_array($this->arr[$pos] + 1, $psevdo_arr)) {
+                        if (($this->arr[$pos] + 2) <= $m) {
+                            $this->arr[$pos] ++;
+                        } else {
+                            if ($pos == 1 && $this->arr[$pos] == $m - 1) {
+                                return $this->result;
+                            }
+                            continue;
+                        }
                         $pos++;
                         continue;
                     }
+                    $this->arr[$pos] ++;
                     break;
-                } elseif ($pos == 0) {
-                    return $this->result;
                 }
             }
             $arr = $this->refresh($pos + 1, $m);
 
             $this->getWord();
+            $pos = $count - 1;
         }
     }
 
@@ -76,9 +85,8 @@ class Mnojestvo {
         }
         return $this->arr;
     }
-
     public function combCount($razmerMnoj, $razmerPodmnoj) {
-        $res = $this->factorial($razmerMnoj) / $this->factorial($razmerMnoj - $razmerPodmnoj);
+        $res = $this->factorial($razmerMnoj)/$this->factorial($razmerMnoj-$razmerPodmnoj);
         return $res;
     }
 
@@ -93,7 +101,7 @@ class Mnojestvo {
 }
 
 $memory = memory_get_usage();
-$n = '0123456789'; //исходная строка
+$n = "12345"; //исходная строка
 $m = 5; //длина итогововой строки
 $mnojestvoModel = new Mnojestvo($n, $m);
 
@@ -105,6 +113,6 @@ $razmerItog = $mnojestvoModel->combCount($mnojestvoModel->ishodnRazmer, $mnojest
     Строка: <?= $n ?>(N)
     Длина итоговой строки: <?= $m ?>(M)
     <?php print_r($mnojestvoModel->getWords()); ?>
-    Память: <?= (memory_get_usage() - $memory) / 1024 / 1024 ?>
+    Память: <?= (memory_get_usage()-$memory)/1024/1024 ?>
 
 </pre>
