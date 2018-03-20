@@ -31,7 +31,7 @@ class Mnojestvo {
         $this->result[] = $this->str;
     }
 
-    public function lastElIteration() {
+    public function lastElementIterations() {
         $psevdo_arr = array_slice($this->arr, 0, $this->pos);
         for ($i = $this->arr[$this->pos] + 1; $i <= $this->m; $i++) {
             if (!in_array($i, $psevdo_arr)) {
@@ -41,7 +41,7 @@ class Mnojestvo {
         }
     }
 
-    public function otherElIteration() {
+    public function otherElementIteration() {
         while ($this->pos-- > 0) {
             $psevdo_arr = array_slice($this->arr, 0, $this->pos);
             if ($this->arr[$this->pos] ++ < $this->m) {
@@ -54,15 +54,15 @@ class Mnojestvo {
                 return false;
             }
         }
+        $this->refresh($this->pos + 1);
+        $this->getWord();
         return true;
     }
 
     public function getWords() {
-        while ($this->otherElIteration()) {
-            $this->refresh($this->pos + 1);
-            $this->getWord();
+        while ($this->otherElementIteration()) {
             $this->pos = $this->last;
-            $this->lastElIteration();
+            $this->lastElementsIterations();
         }
         return $this->result;
     }
@@ -95,6 +95,7 @@ class Mnojestvo {
             return $value * $this->factorial($value - 1);
         }
     }
+
 }
 
 $memory = memory_get_usage();
