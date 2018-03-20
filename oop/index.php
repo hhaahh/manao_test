@@ -1,4 +1,5 @@
 <?php
+$start = microtime(true);
 
 class Mnojestvo {
 
@@ -9,6 +10,8 @@ class Mnojestvo {
     public $last;
     public $arr;
     public $result;
+    public $pos;
+    public $m;
 
     public function __construct($str = '', $razmer = 0) {
         $this->razmer = $razmer;
@@ -16,6 +19,8 @@ class Mnojestvo {
         $this->str = $str;
         $this->ishodnArr = str_split($str);
         $this->ishodnRazmer = count($this->ishodnArr);
+        $this->m = $this->ishodnRazmer - 1;
+        $this->arr = range(0, $this->razmer - 1);
     }
 
     public function getWord() {
@@ -26,42 +31,43 @@ class Mnojestvo {
         $this->result[] = $this->str;
     }
 
-    public function getWords() {
-        $m = $this->ishodnRazmer - 1;
-
-        $count = $this->razmer;
-        $this->arr = range(0, $this->razmer - 1);
-
-
-        $this->getWord();
-        while (true) {
-            $pos = $this->last;
-            $psevdo_arr = array_slice($this->arr, 0, $pos);
-            for ($i = $this->arr[$pos] + 1; $i <= $m; $i++) {
-                if (!in_array($i, $psevdo_arr)) {
-                    $this->arr[$pos] = $i;
-                    $this->getWord();
-                }
+    public function lastElIteration() {
+        $psevdo_arr = array_slice($this->arr, 0, $this->pos);
+        for ($i = $this->arr[$this->pos] + 1; $i <= $this->m; $i++) {
+            if (!in_array($i, $psevdo_arr)) {
+                $this->arr[$this->pos] = $i;
+                $this->getWord();
             }
-            while ($pos-- > 0) {
-                $psevdo_arr = array_slice($this->arr, 0, $pos);
-                if ($this->arr[$pos]++ < $m) {
-                    if (in_array($this->arr[$pos], $psevdo_arr)) {
-                        $pos++;
-                        continue;
-                    }
-                    break;
-                } elseif ($pos == 0) {
-                    return $this->result;
-                }
-            }
-            $arr = $this->refresh($pos + 1, $m);
-
-            $this->getWord();
         }
     }
 
-    public function refresh($do, $max) {
+    public function otherElIteration() {
+        while ($this->pos-- > 0) {
+            $psevdo_arr = array_slice($this->arr, 0, $this->pos);
+            if ($this->arr[$this->pos] ++ < $this->m) {
+                if (in_array($this->arr[$this->pos], $psevdo_arr)) {
+                    $this->pos++;
+                    continue;
+                }
+                break;
+            } elseif ($this->pos == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public function getWords() {
+        while ($this->otherElIteration()) {
+            $this->refresh($this->pos + 1);
+            $this->getWord();
+            $this->pos = $this->last;
+            $this->lastElIteration();
+        }
+        return $this->result;
+    }
+
+    public function refresh($do) {
         $count = count($this->arr);
         for ($i = $do; $i < $count; $i++) {
             $i1 = 0;
@@ -69,7 +75,7 @@ class Mnojestvo {
             while (in_array($i1, $arr_slice = array_slice($this->arr, 0, $i))) {
                 $i1++;
                 $this->arr[$i] ++;
-                if ($max <= $this->arr[$i]) {
+                if ($this->m <= $this->arr[$i]) {
                     break;
                 }
             }
@@ -89,7 +95,6 @@ class Mnojestvo {
             return $value * $this->factorial($value - 1);
         }
     }
-
 }
 
 $memory = memory_get_usage();
@@ -106,5 +111,5 @@ $razmerItog = $mnojestvoModel->combCount($mnojestvoModel->ishodnRazmer, $mnojest
     Длина итоговой строки: <?= $m ?>(M)
     <?php print_r($mnojestvoModel->getWords()); ?>
     Память: <?= (memory_get_usage() - $memory) / 1024 / 1024 ?>
-
+    <?= $time = microtime(true) - $start ?>
 </pre>
