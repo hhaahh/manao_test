@@ -127,20 +127,21 @@ class Mnojestvo {
     }
 
 }
-
 $memory = memory_get_usage();
-$n = '0123456789'; //исходная строка
+$n = '012345678'; //исходная строка
 $m = 5; //длина итогововой строки
 $mnojestvoModel = new Mnojestvo($n, $m);
 
 $razmerItog = $mnojestvoModel->combCount($mnojestvoModel->ishodnRazmer, $mnojestvoModel->razmer);
+$res = $mnojestvoModel->getWords();
 ?>
 
 <pre>
     Необходимый размер: <?= $razmerItog ?> 
     Строка: <?= $n ?>(N)
     Длина итоговой строки: <?= $m ?>(M)
-    <?php print_r($mnojestvoModel->getWords()); ?>
+    Время выполнения: <?= $time = microtime(true) - $start ?> сек
+    <?php print_r($res); ?>
     Задействовано памяти: <?= ((memory_get_usage() - $memory) / 1024) / 1024 ?> Мб
     Время выполнения: <?= $time = microtime(true) - $start ?> сек
 </pre>
